@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
             return 1;
         }
 
-        while( !feof(FD)){ //3. End-of-File indicator
+        while( !feof(FD)){ //3. End-of-File indicator (일명 EOF. 파일의 끝을 알려줌)
             if(!fgets(contents, MAX_LEN , FD))
                 break;
                 
