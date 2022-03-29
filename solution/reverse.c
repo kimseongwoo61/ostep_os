@@ -32,31 +32,33 @@ int main(int argc, char* argv[]){
             fprintf(stderr, "reverse: cannot open file '%s'\n",argv[2]);
             exit(1);
         }
-    	
-    }
 
-    if(!strcmp(argv[1], argv[2])){ // 입력된 경로가 일치하면, 동일 파일로 간주함. 
+        while(1){
+            if (feof(FD) == 0 && feof(FD2) == 0){
+                checker_FD = fgetc(FD);
+                checker_FD2 = fgetc(FD2);
+
+                if (checker_FD != checker_FD2) // 읽어드린 정보가 하나라도 다르면 다른 파일이다.
+                    break;
+            }
+            else{
+                fprintf(stderr, "reverse: input and output file must differ\n");
+                exit(1);
+            }  
+        }
+        if(!strcmp(argv[1], argv[2])){ // 입력된 경로가 일치하면, 동일 파일로 간주함. 
             fprintf(stderr,"reverse: input and output file must differ\n");
             exit(1);
+        }
     }
+
+    
 	// 입력된 두 인자 파일 경로가 동일한지 확인하는 부분
 	// 조금 무식한 방법이지만, 두 인자 경로 파일 스트림을 열고 끝까지 읽어 드린다.
 	// 둘중 하나가 먼저 끝나면 다른 파일로 인식하는 방식으로 전체 탐색이 진행되어야 해서 많은 연산을 요구한다.
 	// 참고 : https://ddoddofather.tistory.com/entry/C%EC%96%B8%EC%96%B4-%EB%91%90%EA%B0%9C%EC%9D%98-%ED%8C%8C%EC%9D%BC%EC%9D%B4-%EA%B0%99%EC%9D%80%EC%A7%80%EB%A5%BC-%EA%B2%80%EC%82%AC%ED%95%B4%EB%B3%B4%EC%9E%90
    
-	while(1){
-		if (feof(FD) == 0 && feof(FD2) == 0){
-			checker_FD = fgetc(FD);
-            checker_FD2 = fgetc(FD2);
-
-            if (checker_FD != checker_FD2) // 읽어드린 정보가 하나라도 다르면 다른 파일이다.
-				break;
-		}
-        else{
-            fprintf(stderr, "reverse: input and output file must differ\n");
-            exit(1);
-        }  
-    }
+	
 	
 
     fseek(FD,0,SEEK_END);     // 파일의 맨 끝으로 이동
