@@ -32,6 +32,11 @@ int main(int argc, char* argv[]){
             fprintf(stderr, "reverse: cannot open file '%s'\n",argv[2]);
             exit(1);
         }
+	    
+	if(!strcmp(argv[1], argv[2])){ // 입력된 경로가 일치하면, 동일 파일로 간주함. 
+            fprintf(stderr,"reverse: input and output file must differ\n");
+            exit(1);
+        }
 
         while(1){
             if (feof(FD) == 0 && feof(FD2) == 0){
@@ -46,10 +51,7 @@ int main(int argc, char* argv[]){
                 exit(1);
             }  
         }
-        if(!strcmp(argv[1], argv[2])){ // 입력된 경로가 일치하면, 동일 파일로 간주함. 
-            fprintf(stderr,"reverse: input and output file must differ\n");
-            exit(1);
-        }
+        
     }
 
     
