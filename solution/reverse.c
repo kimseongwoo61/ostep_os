@@ -80,4 +80,5 @@ void reversContents(FILE* input, FILE* output){
     fseek(fp, 0, SEEK_SET);
     getline(&buffer, &size, fp);
     fprintf(fp2, "%s", buffer);
+    free(buffer);
 }
